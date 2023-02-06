@@ -1,4 +1,5 @@
 import React from 'react'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import Home from './pages/Home'
 import "./app.css"
 import Product from './pages/Product'
@@ -8,9 +9,21 @@ import Cart from './pages/Cart'
 import ProductList from './pages/ProductList'
 
 const App = () => {
+  // const navigate = useNavigate()
+  const user = true
+
   return (
     <>
-    <Cart/>
+    <Router>
+      <Routes>
+        <Route exact path='/' element={<Home />} />
+        <Route path='/products/:category' element={<ProductList />} />
+        <Route path='/product/:id' element={<Product />} />
+        <Route path='/cart' element={<Cart />} />
+        <Route path='/login' element={user ? <Home /> : <Login />} />
+        <Route path='/register' element={<Register />} />
+      </Routes>
+    </Router>
     </>
   )
 }
