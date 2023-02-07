@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"
 import Home from './pages/Home'
 import "./app.css"
 import Product from './pages/Product'
@@ -7,10 +7,11 @@ import Register from './pages/Register'
 import Login from './pages/Login'
 import Cart from './pages/Cart'
 import ProductList from './pages/ProductList'
+import Success from './pages/Success'
+import { useSelector } from 'react-redux'
 
 const App = () => {
-  // const navigate = useNavigate()
-  const user = true
+  const user = useSelector((state) => state.user.currentUser)
 
   return (
     <>
@@ -20,8 +21,9 @@ const App = () => {
         <Route path='/products/:category' element={<ProductList />} />
         <Route path='/product/:id' element={<Product />} />
         <Route path='/cart' element={<Cart />} />
-        <Route path='/login' element={user ? <Home /> : <Login />} />
-        <Route path='/register' element={<Register />} />
+        <Route path='/login' element={user ? <Navigate to="/" replace="true" /> : <Login />}/>
+        <Route path='/register' element={user ? <Navigate to="/" replace="true" /> : <Register />} />
+        <Route path='/success' element={<Success />} />
       </Routes>
     </Router>
     </>
